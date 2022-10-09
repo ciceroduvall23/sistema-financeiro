@@ -1,12 +1,13 @@
 import React, { useState } from "react";
+import Grid from "../Grid";
 import * as C from "./style"
 
-const Form = ({handleAdd}) => {
+const Form = ({handleAdd ,transactionList, setTransacionsList}) => {
     const [desc,setDesc] = useState("");
     const [amount, setAmount ] = useState("");
     const [isExpense, setExpense] = useState(false);
 
-    const generateID = () => Math.round(Math.random() * 1000);
+    const generateID = () => Math.round(Math.random() * 1000); /*aqui vai gerar um ID aleatorio*/  
 
     const handleSave = () =>{
         if(!desc || !amount){
@@ -36,14 +37,14 @@ const Form = ({handleAdd}) => {
        <C.Container>
         <C.InputContent>
             <C.Label>Descrição</C.Label>
-           <C.Input value={desc} onChance={(e) => setDesc(e.target.value)} />
+           <C.Input value={desc} onChange={(e) => setDesc(e.target.value)} />
         </C.InputContent>
         <C.InputContent>
         <C.Label>Valor</C.Label>
            <C.Input 
             value={amount}
              type="number" 
-             onChance={(e) => setAmount(e.target.value)} />
+             onChange={(e) => setAmount(e.target.value)} />
         </C.InputContent>
         <C.RadioGroup>
         <C.Input 
@@ -51,18 +52,19 @@ const Form = ({handleAdd}) => {
              id="rIncome"
              defaultCkecked
              name="group1"
-             onChance={() => setExpense(!isExpense)} />
+             onChange={() => setExpense(!isExpense)} />
 
              <C.Label htmlFor ="rIncome">Entrada</C.Label>
              <C.Input 
              type="radio" 
              id="rExpenses"
              name="group1"
-             onChance={() => setExpense(!isExpense)} />
+             onChange={() => setExpense(!isExpense)} />
                <C.Label htmlFor ="rExpenses">Saída</C.Label>
         </C.RadioGroup>
         <C.Button onClick={handleSave}>ADICIONAR</C.Button> {/*quando eu for clicar no botão adicionar,ele vai verificar se nenhum dos campos estão vazios */}
        </C.Container>
+       <Grid itens={transactionList} setItens={setTransacionsList} />
        </>
     );
 };

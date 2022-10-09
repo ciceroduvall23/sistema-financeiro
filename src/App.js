@@ -7,7 +7,7 @@ import Global from "./styles/global"
 const App = () => {
   const data = localStorage.getItem("transactions");
   const [transactionsList, setTransacionsList] = useState(
-     data ? JSON.parse(data) : {}
+     data ? JSON.parse(data) : []
   );
   const [income,setIncome] = useState(0);
   const [expense,setExpense] = useState(0);
@@ -33,7 +33,7 @@ const App = () => {
   
     }, [transactionsList]);
 
-    const handleAdd = (transaction) =>{
+    const handleAdd = (transaction) => {
       const newArrayTransactions = [...transactionsList, transaction];
 
       setTransacionsList(newArrayTransactions);
@@ -44,7 +44,10 @@ return (
   <>
  <Header/>
  <Resume income={income} expense={expense} total={total}/>
- <Form handleAdd={handleAdd}/> {/*passando a propiedade handleAdd  */} 
+ <Form 
+ handleAdd={handleAdd} 
+ transactionsList={transactionsList} 
+ setTransacionsList={setTransacionsList}/> {/*passando a propiedade handleAdd  */} 
   <Global />
   </>
 );
